@@ -9,6 +9,10 @@ var terminated = false
 function startQuiz(event){
     event.preventDefault()
 
+    questionCounter = 0
+    counter = 2*60
+    terminated = false
+
     var startButton = event.target
     startButton.setAttribute("disabled","")
     startButton.innerHTML = 'Test ongoing...'
@@ -23,20 +27,18 @@ function startQuiz(event){
 
 function answerQuestion(event){
     event.preventDefault()
-    document.querySelector('#quizQuestions').innerHTML = ''
-    document.querySelector('#quizChoices').innerHTML = ''
-    if (questionCounter < quiz.length){
-        console.log(questionCounter)
-        console.log(quiz.length)
 
-        if (event.target.matches('button')){
+    if (event.target.matches('button')){
+        if (questionCounter < quiz.length){
+            document.querySelector('#quizQuestions').innerHTML = ''
+            document.querySelector('#quizChoices').innerHTML = ''
             document.querySelector('#quizQuestions').innerHTML = `<div>${quiz[questionCounter].question}</div>`
             insertChoices(questionCounter)
             questionCounter ++
+        } else {
+            terminateQuiz()
+            terminated = true
         } 
-    } else {
-        terminateQuiz()
-        terminated = true
     
     }
 }
@@ -76,7 +78,14 @@ function beginTimer(){
 
 function terminateQuiz(){
     if (!terminated){
+        
         document.querySelector('#quizBody').style.display = 'none'
+
+        document.querySelector('#end').style.display = 'block'
+
+        var startButton = document.querySelector('#startButton')
+        startButton.disabled = false;
+        startButton.innerHTML = 'Retry?'
         
     }
 }
