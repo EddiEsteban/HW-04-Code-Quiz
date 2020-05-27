@@ -21,10 +21,12 @@
                 Quiz input will stop and score will return when either all questions are answered or when 2 minutes has elapsed.
                 Each incorrect answer will reduce the remaining time by 20 seconds.
             </p>
-            <button type="submit" class="btn btn-primary" id='startButton' onClick='startQuiz(event)'>Begin Test</button>
+            <button type="submit" class="btn btn-primary" id='startButton' onClick='startQuiz(event)'>
+                Begin Test
+            </button>
         </div>
-        <div id='quizBody'>
-            <div id='timer'>
+        <div id='quizBody' style='display:none'>
+            <div>
                 <p>Remaining time: <span id="timer"></span></p>
             </div>
             <form>
@@ -32,6 +34,14 @@
                 <div id='quizChoices' onClick='answerQuestion(event)' class='row'></div>
             </form>
 
+        </div>
+        <div id='end'>
+            <p>
+                Thank you for taking this quiz. 
+                The quiz terminated because <span id='terminateCondition'></span>.
+                Your final score is <span id='finalScore'></span>.
+
+            </p>
         </div>
     </container>
     <script src='./script.js'></script>

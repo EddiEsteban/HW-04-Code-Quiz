@@ -3,12 +3,22 @@
 // Begin quiz
 
 var questionCounter = 0
+var counter = 2*60
+var terminated = false
 
 function startQuiz(event){
     event.preventDefault()
+
+    var startButton = event.target
+    startButton.setAttribute("disabled","")
+    startButton.innerHTML = 'Test ongoing...'
+
+    document.querySelector('#quizBody').style.display = 'block'
+
     shuffleArray(quiz)
     document.querySelector('#quizQuestions').innerHTML = `<div>${quiz[questionCounter].question}</div>`
     insertChoices(questionCounter)
+    beginTimer()
 }
 
 function answerQuestion(event){
@@ -25,7 +35,8 @@ function answerQuestion(event){
             questionCounter ++
         } 
     } else {
-        console.log('1')
+        terminateQuiz()
+        terminated = true
     
     }
 }
@@ -47,6 +58,28 @@ function insertChoices(questionIndex){
     }
 }
 
+// timer
+
+function beginTimer(){
+    document.querySelector('#timer').innerHTML = counter
+    function countdown(){
+        if (counter > 1) {
+            counter --; 
+            document.querySelector('#timer').innerHTML = counter
+        } else {
+            terminateQuiz()
+            terminated = true
+        }
+    }
+    setInterval(countdown, 1000)
+}
+
+function terminateQuiz(){
+    if (!terminated){
+        document.querySelector('#quizBody').style.display = 'none'
+        
+    }
+}
 
 quiz = [
     {question: 'What is not a basic Javascript class?',
