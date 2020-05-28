@@ -6,28 +6,27 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <title>Javascript Quiz</title>
 </head>
 <body>
-    <container>
+    <div class='container'>
         <h1>JavaScript Quiz</h1>
         <h3>Developed by Eddi Esteban</h3>
-        <div class=form-group>
+        <div>
             <p>
                 This quiz will test your Javascript knowledge covered so far in the Coding Bootcamp. It consists of 10 questions. 
                 Quiz input will stop and score will return when either all questions are answered or when 2 minutes has elapsed.
                 Each incorrect answer will reduce the remaining time by 20 seconds.
             </p>
-            <button type="submit" class="btn btn-primary" id='startButton' onClick='startQuiz(event)'>
+            <button type="submit" class="btn btn-primary" id='startButton' onClick='startQuiz(event)' >
                 Begin Test
             </button>
         </div>
         <div id='quizBody' style='display:none'>
+            <hr/>
             <div>
-                <p>Remaining time: <span id="timer"></span></p>
+                <h5>Question <span id='questionId'></span></h5>
+                <p>Remaining time: <span id="timer"></span> seconds</p>
             </div>
             <form>
                 <div id='quizQuestions'></div>
@@ -36,14 +35,50 @@
 
         </div>
         <div id='end' style='display:none'>
+            <hr/>
             <p>
                 Thank you for taking this quiz. 
                 The quiz terminated because <span id='terminateCondition'></span>.
-                Your final score is <span id='finalScore'></span>.
-
+                Your final score is <strong id='finalScore'></strong>.
+                Save your score on the leaderboard by entering your username in the form below.
             </p>
+            <form>
+                <div class='form-group'>
+                    <label for='username'>Username</label>
+                    <input id='username' type='text' class='form-control' placeholder='Your username here'/>
+                    
+                </div>
+                <button  id='submit' type='submit' class='btn btn-primary' onClick='submitScore(event)'>Submit</button>
+                
+            </form>
+            <hr/>
+            <div>
+                <h5>Leaderboard</h5>
+                <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Rank</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Score</th>
+                      </tr>
+                    </thead>
+                    <tbody id='leaderboard'>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+                <ol id='leaderboard'>
+
+                </ol>
+                <button id='resetLeaderboard' type='submit' class='btn btn-danger' onClick='resetLeaderboard(event)'>Reset leaderboard</button>
+            </div>
         </div>
-    </container>
+    </div>
     <script src='./script.js'></script>
 </body>
 </html>
